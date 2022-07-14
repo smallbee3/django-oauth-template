@@ -9,4 +9,5 @@ urlpatterns = [
     path('new1', TemplateView.as_view(template_name='implicitflow_new_1_gis_only.html')),
     path('new2', views.New2TemplateView.as_view()),
     path('new3', views.new3),
+    path('new4', views.New4View.as_view()),
 ]
