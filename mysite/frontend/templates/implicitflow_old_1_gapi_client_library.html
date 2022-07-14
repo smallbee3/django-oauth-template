@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <script src="https://apis.google.com/js/api.js"></script>
+      <script>
+        function start() {
+          gapi.client.init({
+            'apiKey': 'YOUR_API_KEY',
+            'clientId': 'YOUR_CLIENT_ID',
+            'scope': 'https://www.googleapis.com/auth/cloud-translation',
+            'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/translate/v2/rest'],
+          }).then(function() {
+            // Execute an API request which is returned as a Promise.
+            // The method name language.translations.list comes from the API discovery.
+            return gapi.client.language.translations.list({
+              q: 'hello world',
+              source: 'en',
+              target: 'de',
+            });
+          }).then(function(response) {
+            console.log('response: ', response)
+            console.log('translations(en -> de): ', response.result.data.translations[0].translatedText);
+          }, function(reason) {
+            console.log('Error: ' + reason.result.error.message);
+          });
+        };
+
+        // Load the JavaScript client library and invoke start afterwards.
+        gapi.load('client', start);
+      </script>
+    </head>
+    <body>
+      <div id="results"></div>
+    </body>
+  </html>
